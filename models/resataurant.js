@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("./user");
+const Event = require("./event");
 
 const restaurantSchema = mongoose.Schema(
   {
@@ -19,6 +20,7 @@ const restaurantSchema = mongoose.Schema(
     contact: { type: String, required: true },
     openDates: [{ type: String }],
     closeDates: [{ type: String }],
+    events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }], // Reference to events associated with this restaurant
   },
   { timestamps: true }
 );

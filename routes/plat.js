@@ -80,5 +80,23 @@ router.get("/liste-plats", async (req, res) => {
   }
 });
 
+// Add a route to get all dishes (Plats) by category ID
+router.get("/categories/:categoryId/plats", async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+
+    // Fetch dishes (Plats) based on the provided category ID
+    const plats = await Plat.find({ categoryP: categoryId }).populate('categoryP');
+
+    if (!plats || plats.length === 0) {
+      return res.status(404).json({ message: "No dishes found for this category." });
+    }
+
+    res.status(200).json(plats);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 module.exports = router;
